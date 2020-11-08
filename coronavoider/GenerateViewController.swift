@@ -11,9 +11,9 @@ class GenerateViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var textFields: [UITextField?] = [nil, nil, nil, nil]
-    let textFieldPlaceholders = ["Name", "Address", "Actual address", "Place of birth"]
+    let textFieldPlaceholders = ["Nume", "Adresă de domiciliu", "Adresă de reședință", "Localitatea nașterii"]
     var datePickers: [UIDatePicker?] = [nil, nil]
-    let datePickerPlaceholders = ["Date of birth", "Declaration date"]
+    let datePickerPlaceholders = ["Data nașterii", "Data declarației"]
     var duties = [false, false, false, false]
     var workPlace: Work?
     
@@ -74,9 +74,8 @@ extension GenerateViewController: UITableViewDelegate {
                     self.duties[indexPath.row - 6].toggle()
                 }
             case 10:
-                guard self.workPlace == nil else { return }
-                let alertController = UIAlertController(title: "Add workplace", message: nil, preferredStyle: .alert)
-                ["Society", "Location", "Workpoints"].forEach { placeholder in
+                let alertController = UIAlertController(title: "Adaugă loc de muncă", message: nil, preferredStyle: .alert)
+                ["Societate", "Locație", "Puncte de lucru (separate prin virgulă)"].forEach { placeholder in
                     alertController.addTextField { textField in
                         textField.placeholder = placeholder
                     }
@@ -93,7 +92,7 @@ extension GenerateViewController: UITableViewDelegate {
                     self.workPlace = work
                     self.tableView.reloadData()
                 }))
-                alertController.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+                alertController.addAction(.init(title: "Anulare", style: .cancel, handler: nil))
                 self.present(alertController, animated: true, completion: nil)
             default:
                 ()
@@ -134,11 +133,11 @@ extension GenerateViewController: UITableViewDataSource {
             case 10:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
                 if let workPlace = self.workPlace {
-                    cell.textLabel?.text = "Workplace: \(workPlace.society)"
+                    cell.textLabel?.text = "Loc de muncă: \(workPlace.society)"
                     cell.textLabel?.textColor = .label
                     cell.textLabel?.numberOfLines = 0
                 } else {
-                    cell.textLabel?.text = "Add workplace"
+                    cell.textLabel?.text = "Adaugă loc de muncă"
                     cell.textLabel?.textColor = .blue
                 }
                 return cell

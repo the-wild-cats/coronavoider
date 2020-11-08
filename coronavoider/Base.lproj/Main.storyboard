@@ -33,15 +33,15 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2KS-gy-T8t">
                                 <rect key="frame" x="0.0" y="140" width="414" height="662"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your region" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShU-cg-ZFx">
-                                <rect key="frame" x="132.5" y="59" width="149" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alegeți zona casei dvs." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShU-cg-ZFx">
+                                <rect key="frame" x="120" y="59" width="174" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ezA-EA-z87">
-                                <rect key="frame" x="188.5" y="817" width="37" height="30"/>
-                                <state key="normal" title="Done"/>
+                                <rect key="frame" x="169" y="817" width="76" height="30"/>
+                                <state key="normal" title="Finalizează"/>
                                 <connections>
                                     <action selector="onDonePress:forEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WtM-ME-mRS"/>
                                 </connections>
@@ -257,7 +257,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <datePicker tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="kfo-V6-coY">
-                                                    <rect key="frame" x="92" y="-86" width="322" height="216"/>
+                                                    <rect key="frame" x="92" y="-86.5" width="322" height="216.5"/>
                                                 </datePicker>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6P-eD-gNc">
                                                     <rect key="frame" x="20" y="11.5" width="42" height="20.5"/>
@@ -286,8 +286,8 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ks-qp-6bW">
-                                <rect key="frame" x="175" y="778" width="64" height="30"/>
-                                <state key="normal" title="Generate"/>
+                                <rect key="frame" x="170" y="778" width="74" height="30"/>
+                                <state key="normal" title="Generează"/>
                                 <connections>
                                     <action selector="onPressGenerate:forEvent:" destination="532-0S-OYl" eventType="touchUpInside" id="9hN-0k-fZI"/>
                                 </connections>
@@ -313,7 +313,7 @@
             </objects>
             <point key="canvasLocation" x="4918.840579710145" y="887.94642857142856"/>
         </scene>
-        <!--Welcome-->
+        <!--Bine ai venit-->
         <scene sceneID="Z0m-yw-8dl">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="m2l-kb-oRB" customClass="MainViewController" customModule="coronavoider" customModuleProvider="target" sceneMemberID="viewController">
@@ -346,7 +346,7 @@
                             <constraint firstItem="ogF-Wu-Pw8" firstAttribute="bottom" secondItem="fOz-eH-Eqn" secondAttribute="bottom" id="zch-Ut-bXi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Welcome" id="At0-VT-s56"/>
+                    <navigationItem key="navigationItem" title="Bine ai venit" id="At0-VT-s56"/>
                     <connections>
                         <outlet property="tableView" destination="ogF-Wu-Pw8" id="3oZ-Vb-7f4"/>
                         <segue destination="Rey-AE-Vgg" kind="presentation" identifier="cases" id="Fw2-FD-9nZ"/>

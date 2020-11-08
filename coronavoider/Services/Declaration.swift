@@ -13,12 +13,6 @@ struct Work: Codable {
     let society: String
     let location: String
     let workPoints: [String]
-    
-    init(society: String, location: String, workPoints: [String]) {
-        self.society = society
-        self.location = location
-        self.workPoints = workPoints
-    }
 }
 
 enum Duty: String, CaseIterable {
@@ -43,11 +37,11 @@ struct Declaration: Codable {
     let workPlace: Work?
     
     var yesElement: PDFImage {
-        PDFImage(image: UIImage(systemName: "play")!)
+        PDFImage(image: UIImage(named: "yes")!)
     }
     
     var noElement: PDFImage {
-        PDFImage(image: UIImage(systemName: "pause")!)
+        PDFImage(image: UIImage(named: "no")!)
     }
 
     public func createDocument() -> URL {

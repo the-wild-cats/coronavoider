@@ -62,7 +62,7 @@ class HelpViewController: UIViewController {
             cell.contentConfiguration = content
             let headerDisclosureOption = UICellAccessory.OutlineDisclosureOptions(style: .header)
             cell.accessories = [.outlineDisclosure(options: headerDisclosureOption)]
-    }
+        }
         
         let contentCellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, ContentItem> {  (cell, indexPath, contentItem) in
             var content = cell.defaultContentConfiguration()
@@ -90,8 +90,8 @@ class HelpViewController: UIViewController {
             let headerListItem = ListItem.header(headerItem)
             sectionSnapshot.append([headerListItem])
             
-            let symbolListItemArray = headerItem.items.map { ListItem.content($0) }
-            sectionSnapshot.append(symbolListItemArray, to: headerListItem)
+            let contentArray = headerItem.items.map { ListItem.content($0) }
+            sectionSnapshot.append(contentArray, to: headerListItem)
             
             sectionSnapshot.expand([headerListItem])
             

@@ -17,11 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+//        UserDefaults.standard.dictionaryRepresentation().keys.forEach { UserDefaults.standard.removeObject(forKey: $0) }
+//        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
         FirebaseApp.configure()
         let settings = FirestoreSettings()
         settings.isPersistenceEnabled = false
-        let db = Firestore.firestore()
-        db.settings = settings
+        Firestore.firestore().settings = settings
         
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.delegate = self

@@ -13,12 +13,12 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let rows = [
-        "View cases",
-        "Generate PDF",
-        "Mark location as crowded",
-        "View heatmap",
-        "Info",
-        "Help"
+        "Vizualizează numărul de cazuri pe județ",
+        "Generează declarație pe propria răspundere",
+        "Marchează locația ca fiind aglomerată",
+        "Vizualizează harta zonelor aglomerate",
+        "Informații generale despre SARS-CoV-2",
+        "Ce fac dacă suspectez că am COVID-19?"
     ]
 
     let locationManager = CLLocationManager()
@@ -47,6 +47,15 @@ class MainViewController: UIViewController {
         self.tableView.dataSource = self
         
         CoronaService.shared.startCrowdedZonesUpdate()
+        
+        let didAgree = UserDefaults.standard.bool(forKey: "didAgree")
+        if !didAgree {
+            let alertController = UIAlertController(title: "Atenție", message: "Lăsați aplicația să ruleze în fundal, nu o închideți forțat", preferredStyle: .alert)
+            alertController.addAction(.init(title: "OK", style: .default, handler: { _ in
+                UserDefaults.standard.set(true, forKey: "didAgree")
+            }))
+            self.present(alertController, animated: true)
+        }
     }
 }
 
@@ -76,28 +85,28 @@ extension MainViewController: CLLocationManagerDelegate {
         let notificationCenter = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         if let outside = outside {
-            content.title = "It looks like you \(outside ? "went outside" : "came back home")"
-            content.body = "Don't forget to \(outside ? "take your mask" : "wash your hands")!"
+            content.title = "Se pare că \(outside ? "ai plecat de acasă" : "te-ai întors acasă")"
+            content.body = "Nu uita să \(outside ? "îți iei masca de protecție" : "te speli pe mâini")!"
             if outside {
                 self.sendPeriodicNotifications()
             } else {
                 notificationCenter.removeAllPendingNotificationRequests()
             }
+            UserDefaults.standard.setValue(outside, forKey: "outside")
         } else {
-            content.title = "It looks like you entered a crowded zone"
-            content.body = "Try avoiding it if possible"
+            content.title = "Se pare că ai intrat într-o zonă aglomerată"
+            content.body = "Încearcă să o eviți pe cât posibil!"
         }
         content.sound = .none
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
         notificationCenter.add(request)
-        UserDefaults.standard.setValue(outside, forKey: "outside")
     }
 
     private func sendPeriodicNotifications() {
         let content = UNMutableNotificationContent()
-        content.title = "Reminder"
-        content.body = "Wash your hands!"
+        content.title = "Nu uita"
+        content.body = "Spală-te pe mâini!"
         content.sound = .none
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 60, repeats: true)
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
@@ -106,17 +115,17 @@ extension MainViewController: CLLocationManagerDelegate {
     }
     
     private func markLocationAsCrowded() {
-        let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to mark your current location as crowded?", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: {_ in
+        let alertController = UIAlertController(title: "Confirmare", message: "Sigur dorești să marchezi locația curentă ca fiind aglomerată?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Da", style: .default, handler: { _ in
             if let location = self.locationManager.location {
                 CoronaService.shared.markLocationAsCrowded(location: location) {
-                    let finalAlertController = UIAlertController(title: "Done", message: "Your response was added", preferredStyle: .alert)
+                    let finalAlertController = UIAlertController(title: "Efectuat", message: "Răspunsul tău a fost înregistrat", preferredStyle: .alert)
                     finalAlertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(finalAlertController, animated: true, completion: nil)
                 }
             }
         }))
-        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Nu", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
 }
@@ -154,6 +163,22 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         cell.textLabel?.text = self.rows[indexPath.row]
+        switch indexPath.row {
+            case 0:
+                cell.imageView?.image = UIImage(systemName: "person.crop.circle.badge.questionmark")!
+            case 1:
+                cell.imageView?.image = UIImage(systemName: "pencil.circle")!
+            case 2:
+                cell.imageView?.image = UIImage(systemName: "mappin.circle")!
+            case 3:
+                cell.imageView?.image = UIImage(systemName: "map")!
+            case 4:
+                cell.imageView?.image = UIImage(systemName: "info.circle")!
+            case 5:
+                cell.imageView?.image = UIImage(systemName: "questionmark.circle")!
+            default:
+                ()
+        }
         return cell
     }
 }
